@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    .font-alice {
+        font-family: 'Alice', serif;
+    }
+    .font-exo {
+        font-family: 'Exo', sans-serif;
+    }
+    .font-pacifico {
+        font-family: 'Pacifico', cursive;
+    }
+    .font-great-vibes {
+        font-family: 'Great Vibes', cursive;
+    }
+}
