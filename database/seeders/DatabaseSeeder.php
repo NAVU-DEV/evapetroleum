@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             InboxSeeder::class,
             UserSeeder::class,
             LeaseBookSeeder::class,
+            HomeContentSeeder::class
         ]);
     }
 }

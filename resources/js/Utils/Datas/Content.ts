@@ -2,7 +2,7 @@ import { CardInterface, TestimonyInterface, BottomInterface  } from "../Interfac
 import { ApiURL } from "./Globals/axios"
 import axios from "axios"
 
-export const CardData: Array<CardInterface> = [
+export const CardData1: Array<CardInterface> = [
     {
         image : {
             imageUrl: 'storegetank.jpg',
@@ -31,6 +31,11 @@ export const CardData: Array<CardInterface> = [
         desc: 'Crude Oil, Fuel Oil, Diesel, Gasoline, Naphtha and others Oil specifications, also provide oil mix tank facilities ask customer requests.'
     }
 ]
+
+export const ContentData = async(): Promise<CardInterface[]> => {
+    const response = await axios.get<CardInterface[]>(ApiURL + 'gethomecontent')
+    return response.data
+}
 
 // Get Data Testimony
 export const TestimonyData = async(): Promise<TestimonyInterface[]> => {

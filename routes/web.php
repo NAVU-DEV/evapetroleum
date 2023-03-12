@@ -6,6 +6,7 @@ use App\Http\Controllers\BackendController;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\LeaseBookController;
 use App\Http\Controllers\ShipLeaseController;
+use App\Http\Controllers\HomeContentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,9 +32,12 @@ Route::get('/shiplease', [FrontendController::class, 'frontend_shiplease'])->nam
 Route::get('/testimony', [FrontendController::class, 'getTestimony'])->name('get-testimony');
 Route::get('/products', [FrontendController::class, 'getProducts'])->name('get-product');
 Route::get('/shipleases', [FrontendController::class, 'getShips'])->name('get-ship');
+Route::get('/gethomecontent', [HomeContentController::class, 'getHomeContent'])->name('get-home-content');
 
 // Post Data
 Route::post('/sendmessage', [InboxController::class, 'store'])->name('send-message');
+
+    Route::get('/gethomecontent', [HomeContentController::class, 'getHomeContent'])->name('get-home-content');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -44,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/inbox', [BackendController::class, 'inbox'])->name('backend-inbox');
     Route::get('/leasebook', [BackendController::class, 'leasebook'])->name('backend-leasebook');
     Route::get('/ships', [BackendController::class, 'ships'])->name('backend-ships');
+    Route::get('/contentmanager', [BackendController::class, 'contentManager'])->name('backend-contentmanager');
 
     // Admin Get Data
     Route::get('/inboxes', [InboxController::class, 'getInboxes'])->name('get-inbox');
@@ -55,6 +60,7 @@ Route::middleware('auth')->group(function () {
     // Admin Post Data
     Route::post('/acceptbook', [LeaseBookController::class, 'acceptBook'])->name('accept-book');
     Route::post('/sendbooking', [ShipLeaseController::class, 'sendBooking'])->name('send-booking');
+    Route::post('/contentupdate', [HomeContentController::class, 'updateContent'])->name('home-content-update');
 
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

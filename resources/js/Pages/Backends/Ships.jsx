@@ -33,6 +33,8 @@ export default function Ships() {
         });
     }, [findData, currentPage]);
 
+    console.log(ships.data)
+
     return (
         <>
             <div className="grid gap-2">
@@ -72,9 +74,67 @@ export default function Ships() {
                                                 {data.status}
                                             </td>
                                             <td className="px-2">
-                                                <button className="p-2 bg-gray-800 text-white rounded-md">
+                                                <button className="p-2 bg-gray-800 text-white rounded-md"
+                                                    onClick={() => hiddenToggle(`view-ship-${index}`)}
+                                                >
                                                     view
                                                 </button>
+                                            </td>
+                                            <td
+                                                id={`view-ship-${index}`}
+                                                className="absolute hidden left-0 top-0 w-screen h-screen"
+                                            >
+                                                <div className="flex items-center justify-center w-full h-full">
+                                                    <div className="grid p-2 bg-gray-800 rounded-md w-[80vw] text-start">
+                                                        <div className="flex items-center justify-between">
+                                                            <p className="text-xl text-white">
+                                                                Message
+                                                            </p>
+                                                            <div
+                                                                onClick={() =>
+                                                                    hiddenToggle(
+                                                                        `view-ship-${index}`
+                                                                    )
+                                                                }
+                                                                className="flex rounded items-center justify-center p-2 bg-gray-400 hover:bg-gray-300 cursor-pointer"
+                                                            >
+                                                                <i className="fa-solid fa-xmark"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div className="p-2 bg-gray-300 mt-2 rounded">
+                                                            <div className="grid grid-cols-5 gap-3">
+                                                                <p>From</p>
+                                                                <p className="col-span-4">
+                                                                    : {data.name}
+                                                                </p>
+                                                            </div>
+                                                            <div className="grid grid-cols-5 gap-3">
+                                                                <p>Built</p>
+                                                                <p className="col-span-4">
+                                                                    : {data.built}
+                                                                </p>
+                                                            </div>
+                                                            <div className="grid grid-cols-5 gap-3">
+                                                                <p>Yard</p>
+                                                                <p className="col-span-4">
+                                                                    : {data.yard}
+                                                                </p>
+                                                            </div>
+                                                            <div className="grid grid-cols-5 gap-3">
+                                                                <p>LWT</p>
+                                                                <p className="col-span-4">
+                                                                    : {data.lwt}
+                                                                </p>
+                                                            </div>
+                                                            <div className="grid grid-cols-5 gap-3">
+                                                                <p>Status</p>
+                                                                <p className="col-span-4">
+                                                                    : {data.status}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     );

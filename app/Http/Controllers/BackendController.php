@@ -21,4 +21,9 @@ class BackendController extends Controller
     {
         return Inertia::render('Backends/Ships');
     }
+
+    public function contentManager()
+    {
+        return Inertia::render('Backends/ContentManager');
+    }
 }
