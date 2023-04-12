@@ -13,7 +13,6 @@ export default function Hero() {
             duration: 800,
         });
         ContentData().then(value => {
-            console.log(value)
             setHeroContent(value)
         })
     }, []);

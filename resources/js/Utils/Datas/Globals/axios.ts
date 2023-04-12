@@ -1,1 +1,2 @@
-export const ApiURL = 'http://evapetroleum.test/'
+export const ApiURL = ''
+// export const ApiUrl = ''
