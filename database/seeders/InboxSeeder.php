@@ -13,6 +13,6 @@ class InboxSeeder extends Seeder
      */
     public function run(): void
     {
-        Inbox::factory()->count(25)->create();
+        Inbox::factory()->count(30)->create();
     }
 }
