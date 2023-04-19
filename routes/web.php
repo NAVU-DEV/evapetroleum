@@ -60,6 +60,8 @@ Route::middleware('auth')->group(function () {
     // Admin Post Data
     Route::post('/acceptbook', [LeaseBookController::class, 'acceptBook'])->name('accept-book');
     Route::post('/sendbooking', [ShipLeaseController::class, 'sendBooking'])->name('send-booking');
+    Route::post('/ships', [ShipLeaseController::class, 'addShips'])->name('add-ships');
+    Route::post('/ships/{data}', [ShipLeaseController::class, 'deleteShip'])->name('delete-ships');
     Route::post('/contentupdate', [HomeContentController::class, 'updateContent'])->name('home-content-update');
 
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
