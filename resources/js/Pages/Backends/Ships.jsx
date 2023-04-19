@@ -90,7 +90,7 @@ export default function Ships() {
                         onClick={() => hiddenToggle("add-ship-form")}
                         className="absolute p-2 text-white bg-white bg-opacity-50 hover:bg-opacity-60 my-2"
                     >
-                        add ship + 
+                        add ship -
                     </button>
 
                     {/* add new ship form */}
