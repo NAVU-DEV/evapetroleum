@@ -32,24 +32,62 @@ class ShipLeaseController extends Controller
     public function sendBooking(Request $request)
     {
         $input = $request->validate([
+            'document' => 'required|mimes:pdf,doc,docx|max:2048',
             'ship_id' => 'required',
             'company' => 'required',
             'email' => 'required',
             'document' => 'required'
         ]);
 
-        // import document to public path 'files/'
+        // File upload
         $document = $request->file('document');
         $destinationPath = 'files/';
-        $filename = Date('YmdHis') . 'df.' . $document->getClientOriginalExtension();
+        $filename = date('YmdHis') . 'df.' . $document->getClientOriginalExtension();
         $document->move($destinationPath, $filename);
-        $input['document'] = $filename;
 
-        // setting booking status
-        $input['book_status'] = 'Booking';
-
-        LeaseBook::create($input);
+        // Insert data with batch insert
+        $data = [
+            [
+                'ship_id' => $request->input('ship_id'),
+                'company' => $request->input('company'),
+                'email' => $request->input('email'),
+                'document' => $filename,
+                'book_status' => 'Booking',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
+        ];
+        LeaseBook::insert($data);
 
         return response()->json(['message' => 'berhasil mengirim booking request']);
+    }
+
+    public function addShips(Request $request)
+    {
+        $input = $request->validate([
+            'name' => 'required',
+            'built' => 'required',
+            'yard' => 'required',
+            'lwt' => 'required',
+            'rate' => 'required'
+        ]);
+
+        $image = $request->file('image');
+        $destinationPath = 'images/';
+        $fileName = Date('YmdHis') . 'sp.' . $image->getClientOriginalExtension();
+        $image->move($destinationPath, $fileName);
+        $input['image'] = $fileName;
+        $input['status'] = 'Ready';
+
+        ShipLease::create($input);
+
+        return response()->json(['message' => 'berhasil menambahkan kapal baru!']);
+    }
+
+    public function deleteShip($data)
+    {
+        ShipLease::where('id', $data)->delete();
+
+        return response()->json(['message' => 'berhasil menghapus kapal dari database!']);
     }
 }

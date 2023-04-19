@@ -9,7 +9,7 @@ use App\Models\HomeContent;
 class HomeContentSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run all the database seeds.
      */
     public function run(): void
     {
