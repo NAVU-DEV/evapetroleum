@@ -63,10 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/ships', [ShipLeaseController::class, 'addShips'])->name('add-ships');
     Route::post('/ships/{data}', [ShipLeaseController::class, 'deleteShip'])->name('delete-ships');
     Route::post('/contentupdate', [HomeContentController::class, 'updateContent'])->name('home-content-update');
-
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/ships-update/{ship}', [ShipLeaseController::class, 'updateShip'])->name('update-ship');
 });
 
 require __DIR__.'/auth.php';
