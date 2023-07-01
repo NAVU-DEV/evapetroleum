@@ -64,11 +64,28 @@ export default function Ships() {
         await axios
             .post(ApiURL + `ships/${data}`)
             .then((response) => {
-                location.href = './ships';
+                location.href = "./ships";
             })
             .catch((error) => {
                 console.log(error.response);
             });
+    };
+
+    const updateShip = async (dataToUpdate) => {
+        console.log(dataToUpdate)
+        await axios.post(ApiURL + `ships-update/${dataToUpdate.id}`, dataToUpdate, {
+            headers : {
+                'Content-Type' : 'multipart/form-data'
+            }
+        })
+        .then(response => {
+            console.log('masuk')
+            alert('Ship Updated')
+            location.href = './ships'
+        })
+        .catch(error => {
+            console.log(error.message)
+        })
     }
 
     useEffect(() => {
@@ -80,7 +97,36 @@ export default function Ships() {
         });
     }, [findData, currentPage]);
 
-    console.log(dataToAdd);
+    const [dataToUpdate, setData] = useState({
+        id : 0,
+        image: null,
+        name: '',
+        built: '',
+        yard: '',
+        lwt: '',
+        rate: ''
+    });
+    
+    const handleChange = (e) => {
+        if (e.target.name !== 'image') {
+            setData({
+                ...dataToUpdate,
+                [e.target.name]: e.target.value
+            });
+        } else {
+            setData({
+                ...dataToUpdate,
+                image: document.getElementById('image').files[0]
+            });
+        }
+      };
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        updateShip(dataToUpdate);
+    };
+
+    console.log(dataToUpdate.image)
 
     return (
         <>
@@ -210,16 +256,35 @@ export default function Ships() {
                                                 {data.status}
                                             </td>
                                             <td className="px-2">
-                                                <button
-                                                    className="p-2 bg-gray-800 text-white rounded-md"
-                                                    onClick={() =>
-                                                        hiddenToggle(
-                                                            `view-ship-${index}`
-                                                        )
-                                                    }
-                                                >
-                                                    view
-                                                </button>
+                                                <div className="flex gap-2 justify-center">
+                                                    <button
+                                                        className="p-2 bg-gray-800 text-white rounded-md"
+                                                        onClick={() =>
+                                                            hiddenToggle(
+                                                                `view-ship-${index}`
+                                                            )
+                                                        }
+                                                    >
+                                                        view
+                                                    </button>
+                                                    <button className="p-2 bg-gray-800 text-white rounded-md"
+                                                        onClick={() => { 
+                                                                hiddenToggle(
+                                                                    `edit-ship-${index}`
+                                                                )
+                                                                setData({
+                                                                    id : data.id,
+                                                                    name : data.name,
+                                                                    built : data.built,
+                                                                    yard : data.yard,
+                                                                    lwt : data.lwt,
+                                                                    rate : data.rate
+                                                                })
+                                                            }
+                                                        }>
+                                                        edit
+                                                    </button>
+                                                </div>
                                             </td>
                                             <td
                                                 id={`view-ship-${index}`}
@@ -239,7 +304,7 @@ export default function Ships() {
                                                                         )
                                                                     }
                                                                     className="flex rounded items-center justify-center p-2 bg-red-400 hover:bg-red-300 cursor-pointer"
-                                                                    >
+                                                                >
                                                                     <i className="fa-solid fa-trash"></i>
                                                                 </div>
                                                                 <div
@@ -255,38 +320,52 @@ export default function Ships() {
                                                             </div>
                                                         </div>
                                                         <div className="flex gap-2 p-2 bg-gray-300 mt-2 rounded">
-
-                                                            <img src={`images/${data.image}`} alt={`${data.image}`} className="h-56"/>
+                                                            <img
+                                                                src={`images/${data.image}`}
+                                                                alt={`${data.image}`}
+                                                                className="h-56"
+                                                            />
                                                             <div>
-                                                                <div className="grid grid-cols-5 gap-3">
+                                                                <div className="grid grid-cols-5 gap-3 mb-2">
                                                                     <p>From</p>
                                                                     <p className="col-span-4">
                                                                         :{" "}
-                                                                        {data.name}
+                                                                        {
+                                                                            data.name
+                                                                        }
                                                                     </p>
                                                                 </div>
-                                                                <div className="grid grid-cols-5 gap-3">
+                                                                <div className="grid grid-cols-5 gap-3 mb-2">
                                                                     <p>Built</p>
                                                                     <p className="col-span-4">
                                                                         :{" "}
-                                                                        {data.built}
+                                                                        {
+                                                                            data.built
+                                                                        }
                                                                     </p>
                                                                 </div>
-                                                                <div className="grid grid-cols-5 gap-3">
+                                                                <div className="grid grid-cols-5 gap-3 mb-2">
                                                                     <p>Yard</p>
                                                                     <p className="col-span-4">
                                                                         :{" "}
-                                                                        {data.yard}
+                                                                        {
+                                                                            data.yard
+                                                                        }
                                                                     </p>
                                                                 </div>
-                                                                <div className="grid grid-cols-5 gap-3">
+                                                                <div className="grid grid-cols-5 gap-3 mb-2">
                                                                     <p>LWT</p>
                                                                     <p className="col-span-4">
-                                                                        : {data.lwt}
+                                                                        :{" "}
+                                                                        {
+                                                                            data.lwt
+                                                                        }
                                                                     </p>
                                                                 </div>
-                                                                <div className="grid grid-cols-5 gap-3">
-                                                                    <p>Status</p>
+                                                                <div className="grid grid-cols-5 gap-3 mb-2">
+                                                                    <p>
+                                                                        Status
+                                                                    </p>
                                                                     <p className="col-span-4">
                                                                         :{" "}
                                                                         {
@@ -295,6 +374,118 @@ export default function Ships() {
                                                                     </p>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td
+                                                id={`edit-ship-${index}`}
+                                                className="absolute hidden left-0 top-0 w-screen h-screen"
+                                            >
+                                                <div className="flex justify-center pt-24 w-full h-full">
+                                                    <div className="grid p-2 bg-gray-800 rounded-md w-[80vw] h-fit text-start">
+                                                        <div className="flex items-center justify-between">
+                                                            <p className="text-xl text-white">
+                                                                Ship Detail
+                                                            </p>
+                                                            <div className="flex gap-2">
+                                                                <div
+                                                                    onClick={() => {hiddenToggle(
+                                                                            `edit-ship-${index}`
+                                                                            )
+                                                                        }
+                                                                    }
+                                                                    className="flex rounded items-center justify-center p-2 bg-gray-400 hover:bg-gray-300 cursor-pointer"
+                                                                >
+                                                                    <i className="fa-solid fa-xmark"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex gap-2 p-2 bg-gray-300 mt-2 rounded">
+                                                            <img
+                                                                src={`images/${data.image}`}
+                                                                alt={`${data.image}`}
+                                                                className="h-56"
+                                                            />
+                                                            <form className="relative" onSubmit={handleSubmit} encType="multipart/form-data">
+                                                                <div className="grid grid-cols-5 gap-3 mb-2">
+                                                                    <input
+                                                                        type="hidden"
+                                                                        className="p-2 h-6 rounded-md"
+                                                                        name="image"
+                                                                        value={dataToUpdate.id}
+                                                                        onChange={handleChange}
+                                                                    />
+                                                                </div>
+                                                                <div className="grid grid-cols-5 gap-3 mb-2">
+                                                                    <p>Image</p>
+                                                                    <div>
+                                                                        <label htmlFor="image" className="px-4 py-1 bg-gray-400 hover:bg-gray-200">File</label>
+                                                                        <input
+                                                                            type="file"
+                                                                            className="p-2 h-6 rounded-md hidden"
+                                                                            id="image"
+                                                                            name="image"
+                                                                            onChange={handleChange}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="grid grid-cols-5 gap-3 mb-2">
+                                                                    <p>From</p>
+                                                                    <input
+                                                                        type="text"
+                                                                        className="p-2 h-6 rounded-md"
+                                                                        name="name"
+                                                                        value={dataToUpdate.name}
+                                                                        onChange={handleChange}
+                                                                    />
+                                                                </div>
+                                                                <div className="grid grid-cols-5 gap-3 mb-2">
+                                                                    <p>Built</p>
+                                                                    <input
+                                                                        type="text"
+                                                                        className="p-2 h-6 rounded-md"
+                                                                        name="built"
+                                                                        value={dataToUpdate.built}
+                                                                        onChange={handleChange}
+                                                                    />
+                                                                </div>
+                                                                <div className="grid grid-cols-5 gap-3 mb-2">
+                                                                    <p>Yard</p>
+                                                                    <input
+                                                                        type="text"
+                                                                        className="p-2 h-6 rounded-md"
+                                                                        name="yard"
+                                                                        value={dataToUpdate.yard}
+                                                                        onChange={handleChange}
+                                                                    />
+                                                                </div>
+                                                                <div className="grid grid-cols-5 gap-3 mb-2">
+                                                                    <p>LWT</p>
+                                                                    <input
+                                                                        type="text"
+                                                                        className="p-2 h-6 rounded-md"
+                                                                        name="lwt"
+                                                                        value={dataToUpdate.lwt}
+                                                                        onChange={handleChange}
+                                                                    />
+                                                                </div>
+                                                                <div className="grid grid-cols-5 gap-3 mb-2">
+                                                                    <p>Rate</p>
+                                                                    <input
+                                                                        type="text"
+                                                                        className="p-2 h-6 rounded-md"
+                                                                        name="rate"
+                                                                        value={dataToUpdate.rate}
+                                                                        onChange={handleChange}
+                                                                    />
+                                                                </div>
+                                                                <div className="absolute right-0 bottom-0 bg-gray-400 hover:bg-gray-200">
+                                                                    <button type="submit" className="py-1 px-4">
+                                                                        Save
+                                                                    </button>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -311,7 +502,7 @@ export default function Ships() {
                                                             </p>
                                                         </div>
                                                         <div className="p-2 bg-gray-300 hover:bg-gray-400 w-fit mt-2 w-full text-center rounded">
-                                                            <button 
+                                                            <button
                                                                 onClick={() =>
                                                                     hiddenToggle(
                                                                         `delete-ship-${index}`
@@ -322,11 +513,15 @@ export default function Ships() {
                                                             </button>
                                                         </div>
                                                         <div className="p-2 bg-gray-300 hover:bg-gray-400 w-fit mt-2 w-full text-center rounded">
-                                                                <button 
-                                                                    onClick={() => deleteShip(data.id)}
-                                                                >
-                                                                    confirm
-                                                                </button>
+                                                            <button
+                                                                onClick={() =>
+                                                                    deleteShip(
+                                                                        data.id
+                                                                    )
+                                                                }
+                                                            >
+                                                                confirm
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -423,7 +618,7 @@ export default function Ships() {
                                                             </div>
                                                         </div>
                                                         <div className="p-2 bg-gray-300 mt-2 rounded">
-                                                            <div className="grid grid-cols-5 gap-3">
+                                                            <div className="grid grid-cols-5 gap-3 mb-2">
                                                                 <p>Company</p>
                                                                 <p className="col-span-4">
                                                                     :{" "}
@@ -432,7 +627,7 @@ export default function Ships() {
                                                                     }
                                                                 </p>
                                                             </div>
-                                                            <div className="grid grid-cols-5 gap-3">
+                                                            <div className="grid grid-cols-5 gap-3 mb-2">
                                                                 <p>Email</p>
                                                                 <p className="col-span-4">
                                                                     {" "}
@@ -446,7 +641,7 @@ export default function Ships() {
                                                                     </a>
                                                                 </p>
                                                             </div>
-                                                            <div className="grid grid-cols-5 gap-3">
+                                                            <div className="grid grid-cols-5 gap-3 mb-2">
                                                                 <p>Status</p>
                                                                 <p className="col-span-4">
                                                                     :{" "}
@@ -455,7 +650,7 @@ export default function Ships() {
                                                                     }
                                                                 </p>
                                                             </div>
-                                                            <div className="grid grid-cols-5 gap-3">
+                                                            <div className="grid grid-cols-5 gap-3 mb-2">
                                                                 <p>
                                                                     Booked date
                                                                 </p>
@@ -466,7 +661,7 @@ export default function Ships() {
                                                                     }
                                                                 </p>
                                                             </div>
-                                                            <div className="grid grid-cols-5 gap-3">
+                                                            <div className="grid grid-cols-5 gap-3 mb-2">
                                                                 <p>Document</p>
                                                                 <p
                                                                     className="col-span-4 cursor-pointer"

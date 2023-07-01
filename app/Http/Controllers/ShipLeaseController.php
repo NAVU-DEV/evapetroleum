@@ -90,4 +90,26 @@ class ShipLeaseController extends Controller
 
         return response()->json(['message' => 'berhasil menghapus kapal dari database!']);
     }
+
+    public function updateShip(Request $request, $shipId)
+    {
+        $data = $request->validate([
+            'name' => 'required:string',
+            'built' => 'required:string',
+            'yard' => 'required:string',
+            'lwt' => 'required:string',
+            'rate' => 'required:string',
+            'image' => 'nullable:image'
+        ]);
+        
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $path = 'images/';
+            $filename = date('YmdHis') . '.' . $image->getClientOriginalExtension();
+            $image->move($path, $filename);
+            $data['image'] = $filename;
+        }
+
+        return ShipLease::where('id', $shipId)->update($data);
+    }
 }

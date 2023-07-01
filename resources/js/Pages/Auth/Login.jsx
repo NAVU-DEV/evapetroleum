@@ -30,6 +30,12 @@ export default function Login({ status, canResetPassword }) {
         post(route('login'));
     };
 
+    const seePassword = () => {
+        const passwordInput = document.querySelector('.password-input')
+
+        passwordInput.type == 'password' ? passwordInput.type = 'text' : passwordInput.type = 'password'
+    }
+
     return (
         <GuestLayout>
             <Head title="Log in" />
@@ -57,15 +63,21 @@ export default function Login({ status, canResetPassword }) {
                 <div className="mt-4">
                     <InputLabel htmlFor="password" value="Password" />
 
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="current-password"
-                        onChange={handleOnChange}
-                    />
+                    <div className='flex gap-4'>
+                        <TextInput
+                            id="password"
+                            type="password"
+                            name="password"
+                            value={data.password}
+                            className="mt-1 block w-full password-input"
+                            autoComplete="current-password"
+                            onChange={handleOnChange}
+                        />
+
+                        <button type='button' onClick={() => seePassword()} className='px-4 py-2 text-center bg-black text-white font-bold rounded-md'>
+                            <i className="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
 
                     <InputError message={errors.password} className="mt-2" />
                 </div>

@@ -20,6 +20,20 @@ export default function Inbox() {
         setFindData(e.target.value);
     };
 
+    const formatDate = (DATE) => {
+        // get the original date value
+        const originalDate = new Date(DATE);
+
+        const year = originalDate.getFullYear();
+        const month = originalDate.getMonth() + 1;
+        const day = originalDate.getDate();
+        const hours = originalDate.getHours();
+        const minutes = originalDate.getMinutes();
+        const seconds = originalDate.getSeconds();
+
+        return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
     return (
         <>
             <div className="grid gap-2">
@@ -111,6 +125,12 @@ export default function Inbox() {
                                                                 >
                                                                     {data.email}
                                                                 </a>
+                                                            </p>
+                                                        </div>
+                                                        <div className="grid grid-cols-5 gap-3">
+                                                            <p>Entry Date</p>
+                                                            <p className="col-span-4">
+                                                                : {formatDate(data.created_at)}
                                                             </p>
                                                         </div>
                                                     </div>
