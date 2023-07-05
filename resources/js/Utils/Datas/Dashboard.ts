@@ -41,6 +41,7 @@ import { LeaseBookInterface } from "../Interface/Dashboard"
 // Lease Book Data
 export const LeaseBookData = async(page, find) : Promise<LeaseBookInterface[]> => {
     const response = await axios.get<LeaseBookInterface[]>(ApiURL + 'leasebooks?page=' + page + '&find=' + find )
+    console.log(response.data)
     return response.data
 }
 

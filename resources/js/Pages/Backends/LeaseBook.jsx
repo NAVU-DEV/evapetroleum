@@ -38,7 +38,7 @@ export default function LeaseBook() {
                 <table>
                     <thead className="border-b-2 border-t-2 border-black bg-gray-800 text-white">
                         <tr>
-                            <th className="border-r-2 border-white">ship</th>
+                            <th className="border-r-2 border-white">ship name</th>
                             <th className="border-r-2 border-white">email</th>
                             <th className="border-r-2 border-white">status</th>
                             <th>action</th>

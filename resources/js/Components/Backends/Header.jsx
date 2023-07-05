@@ -11,8 +11,11 @@ export default function Header() {
                 }}
             >
                 {/* Title */}
-                <div className="flex font-bold w-full px-12 py-5 backdrop-blur-2xl h-full items-center justify-between ">
-                    <p>Petroleum Dashboard</p>
+                <div className="flex font-bold w-full px-3 py-3 backdrop-blur-2xl h-full items-center justify-between ">
+                    <div className="inline-flex items-center gap-4">
+                        <img src="/images/logo.png" alt="" />
+                        <p>Petroleum Dashboard</p>
+                    </div>
                     <Control />
                 </div>
             </div>

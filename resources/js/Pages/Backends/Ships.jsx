@@ -411,7 +411,7 @@ export default function Ships() {
                                                                 <div className="grid grid-cols-5 gap-3 mb-2">
                                                                     <input
                                                                         type="hidden"
-                                                                        className="p-2 h-6 rounded-md"
+                                                                        className="p-2 h-6 rounded-md col-span-4"
                                                                         name="image"
                                                                         value={dataToUpdate.id}
                                                                         onChange={handleChange}
@@ -423,7 +423,7 @@ export default function Ships() {
                                                                         <label htmlFor="image" className="px-4 py-1 bg-gray-400 hover:bg-gray-200">File</label>
                                                                         <input
                                                                             type="file"
-                                                                            className="p-2 h-6 rounded-md hidden"
+                                                                            className="p-2 h-6 rounded-md col-span-4 hidden"
                                                                             id="image"
                                                                             name="image"
                                                                             onChange={handleChange}
@@ -434,7 +434,7 @@ export default function Ships() {
                                                                     <p>From</p>
                                                                     <input
                                                                         type="text"
-                                                                        className="p-2 h-6 rounded-md"
+                                                                        className="p-2 h-6 rounded-md col-span-4"
                                                                         name="name"
                                                                         value={dataToUpdate.name}
                                                                         onChange={handleChange}
@@ -444,7 +444,7 @@ export default function Ships() {
                                                                     <p>Built</p>
                                                                     <input
                                                                         type="text"
-                                                                        className="p-2 h-6 rounded-md"
+                                                                        className="p-2 h-6 rounded-md col-span-4"
                                                                         name="built"
                                                                         value={dataToUpdate.built}
                                                                         onChange={handleChange}
@@ -454,7 +454,7 @@ export default function Ships() {
                                                                     <p>Yard</p>
                                                                     <input
                                                                         type="text"
-                                                                        className="p-2 h-6 rounded-md"
+                                                                        className="p-2 h-6 rounded-md col-span-4"
                                                                         name="yard"
                                                                         value={dataToUpdate.yard}
                                                                         onChange={handleChange}
@@ -464,7 +464,7 @@ export default function Ships() {
                                                                     <p>LWT</p>
                                                                     <input
                                                                         type="text"
-                                                                        className="p-2 h-6 rounded-md"
+                                                                        className="p-2 h-6 rounded-md col-span-4"
                                                                         name="lwt"
                                                                         value={dataToUpdate.lwt}
                                                                         onChange={handleChange}
@@ -474,7 +474,7 @@ export default function Ships() {
                                                                     <p>Rate</p>
                                                                     <input
                                                                         type="text"
-                                                                        className="p-2 h-6 rounded-md"
+                                                                        className="p-2 h-6 rounded-md col-span-4"
                                                                         name="rate"
                                                                         value={dataToUpdate.rate}
                                                                         onChange={handleChange}
