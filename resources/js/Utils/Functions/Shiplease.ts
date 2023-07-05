@@ -17,3 +17,14 @@ export const sendBookingRequest = (data) => {
         console.log(error.response)
     })
 }
+
+export const markAsDone = async (shipId) => {
+    await axios.post(ApiURL + `mark-as-done/${shipId}`)
+    .then(response => {
+        alert('Shipping Done')
+        location.href = './ships'
+    })
+    .catch(error => {
+        console.log(error.response)
+    })
+}

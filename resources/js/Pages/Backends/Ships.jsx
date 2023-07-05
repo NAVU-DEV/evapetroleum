@@ -6,6 +6,7 @@ import { hiddenToggle } from "@/Utils/Functions/HiddenToggle";
 import Pagination from "@/Components/Globals/Pagination";
 import { DownloadDocument } from "@/Utils/Functions/Leasebook";
 import { ApiURL } from "@/Utils/Datas/Globals/axios";
+import { markAsDone } from "@/Utils/Functions/Shiplease";
 
 export default function Ships() {
     const [findData, setFindData] = useState("");
@@ -229,7 +230,6 @@ export default function Ships() {
                     <thead className="border-b-2 border-black bg-gray-800 text-white">
                         <tr>
                             <th className="border-r-2 border-white">Name</th>
-                            <th className="border-r-2 border-white">Book</th>
                             <th className="border-r-2 border-white">Status</th>
                             <td>Action</td>
                         </tr>
@@ -251,7 +251,6 @@ export default function Ships() {
                                             <td className="border-r-2">
                                                 {data.name}
                                             </td>
-                                            <td className="border-r-2"></td>
                                             <td className="border-r-2">
                                                 {data.status}
                                             </td>
@@ -407,11 +406,11 @@ export default function Ships() {
                                                                 alt={`${data.image}`}
                                                                 className="h-56"
                                                             />
-                                                            <form className="relative" onSubmit={handleSubmit} encType="multipart/form-data">
+                                                            <form className="relative w-full" onSubmit={handleSubmit} encType="multipart/form-data">
                                                                 <div className="grid grid-cols-5 gap-3 mb-2">
                                                                     <input
                                                                         type="hidden"
-                                                                        className="p-2 h-6 rounded-md col-span-4"
+                                                                        className="p-2 h-6 rounded-sm col-span-4"
                                                                         name="image"
                                                                         value={dataToUpdate.id}
                                                                         onChange={handleChange}
@@ -423,7 +422,7 @@ export default function Ships() {
                                                                         <label htmlFor="image" className="px-4 py-1 bg-gray-400 hover:bg-gray-200">File</label>
                                                                         <input
                                                                             type="file"
-                                                                            className="p-2 h-6 rounded-md col-span-4 hidden"
+                                                                            className="p-2 h-6 rounded-sm col-span-4 hidden"
                                                                             id="image"
                                                                             name="image"
                                                                             onChange={handleChange}
@@ -434,7 +433,7 @@ export default function Ships() {
                                                                     <p>From</p>
                                                                     <input
                                                                         type="text"
-                                                                        className="p-2 h-6 rounded-md col-span-4"
+                                                                        className="p-2 h-6 rounded-sm col-span-4"
                                                                         name="name"
                                                                         value={dataToUpdate.name}
                                                                         onChange={handleChange}
@@ -444,7 +443,7 @@ export default function Ships() {
                                                                     <p>Built</p>
                                                                     <input
                                                                         type="text"
-                                                                        className="p-2 h-6 rounded-md col-span-4"
+                                                                        className="p-2 h-6 rounded-sm col-span-4"
                                                                         name="built"
                                                                         value={dataToUpdate.built}
                                                                         onChange={handleChange}
@@ -454,7 +453,7 @@ export default function Ships() {
                                                                     <p>Yard</p>
                                                                     <input
                                                                         type="text"
-                                                                        className="p-2 h-6 rounded-md col-span-4"
+                                                                        className="p-2 h-6 rounded-sm col-span-4"
                                                                         name="yard"
                                                                         value={dataToUpdate.yard}
                                                                         onChange={handleChange}
@@ -464,7 +463,7 @@ export default function Ships() {
                                                                     <p>LWT</p>
                                                                     <input
                                                                         type="text"
-                                                                        className="p-2 h-6 rounded-md col-span-4"
+                                                                        className="p-2 h-6 rounded-sm col-span-4"
                                                                         name="lwt"
                                                                         value={dataToUpdate.lwt}
                                                                         onChange={handleChange}
@@ -474,13 +473,13 @@ export default function Ships() {
                                                                     <p>Rate</p>
                                                                     <input
                                                                         type="text"
-                                                                        className="p-2 h-6 rounded-md col-span-4"
+                                                                        className="p-2 h-6 rounded-sm col-span-4"
                                                                         name="rate"
                                                                         value={dataToUpdate.rate}
                                                                         onChange={handleChange}
                                                                     />
                                                                 </div>
-                                                                <div className="absolute right-0 bottom-0 bg-gray-400 hover:bg-gray-200">
+                                                                <div className="absolute right-0 bottom-0 translate-y-1 bg-gray-400 hover:bg-gray-200">
                                                                     <button type="submit" className="py-1 px-4">
                                                                         Save
                                                                     </button>
@@ -582,7 +581,7 @@ export default function Ships() {
                                                 {data.company}
                                             </td>
                                             <td className="border-r-2">
-                                                {data.status}
+                                                {data.book_status}
                                             </td>
                                             <td className="px-2">
                                                 <button
@@ -606,15 +605,22 @@ export default function Ships() {
                                                             <p className="text-xl text-white">
                                                                 Shipping Ship
                                                             </p>
-                                                            <div
-                                                                onClick={() =>
-                                                                    hiddenToggle(
-                                                                        `view-shippingShip-${index}`
-                                                                    )
-                                                                }
-                                                                className="flex rounded items-center justify-center p-2 bg-gray-400 hover:bg-gray-300 cursor-pointer"
-                                                            >
-                                                                <i className="fa-solid fa-xmark"></i>
+                                                            <div className="flex gap-2">
+                                                                <button onClick={() => {
+                                                                    markAsDone(data.id)
+                                                                }} className="flex font-exo font-bold rounded items-center justify-center p-2 bg-green-400 hover:bg-green-300 cursor-pointer">
+                                                                    Mark As Done
+                                                                </button>
+                                                                <div
+                                                                    onClick={() =>
+                                                                        hiddenToggle(
+                                                                            `view-shippingShip-${index}`
+                                                                        )
+                                                                    }
+                                                                    className="flex rounded items-center justify-center p-2 bg-gray-400 hover:bg-gray-300 cursor-pointer"
+                                                                >
+                                                                    <i className="fa-solid fa-xmark"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div className="p-2 bg-gray-300 mt-2 rounded">

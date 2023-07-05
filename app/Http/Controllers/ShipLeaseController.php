@@ -112,4 +112,15 @@ class ShipLeaseController extends Controller
 
         return ShipLease::where('id', $shipId)->update($data);
     }
+
+    public function markAsDone(string $id) {
+
+        LeaseBook::where('ship_id', $id)->update([
+            'book_status' => 'Done'
+        ]);
+
+        return ShipLease::where('id', $id)->update([
+            'status' => 'Ready'
+        ]);
+    }
 }

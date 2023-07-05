@@ -64,6 +64,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/ships/{data}', [ShipLeaseController::class, 'deleteShip'])->name('delete-ships');
     Route::post('/contentupdate', [HomeContentController::class, 'updateContent'])->name('home-content-update');
     Route::post('/ships-update/{ship}', [ShipLeaseController::class, 'updateShip'])->name('update-ship');
+    Route::post('/mark-as-done/{ship}', [ShipLeaseController::class, 'markAsDone'])->name('mark-as-done');
 });
 
 require __DIR__.'/auth.php';
