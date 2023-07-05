@@ -55,6 +55,7 @@ export default function Login({ status, canResetPassword }) {
                         autoComplete="username"
                         isFocused={true}
                         onChange={handleOnChange}
+                        placeholder="Email"
                     />
 
                     <InputError message={errors.email} className="mt-2" />
@@ -64,14 +65,15 @@ export default function Login({ status, canResetPassword }) {
                     <InputLabel htmlFor="password" value="Password" />
 
                     <div className='flex gap-4'>
-                        <TextInput
+                        <input
                             id="password"
                             type="password"
                             name="password"
                             value={data.password}
-                            className="mt-1 block w-full password-input"
+                            className="mt-1 block w-full password-input border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                             autoComplete="current-password"
                             onChange={handleOnChange}
+                            placeholder='Password'
                         />
 
                         <button type='button' onClick={() => seePassword()} className='px-4 py-2 text-center bg-black text-white font-bold rounded-md'>
