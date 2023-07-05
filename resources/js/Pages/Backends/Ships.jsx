@@ -55,6 +55,8 @@ export default function Ships() {
             })
             .then((response) => {
                 console.log(response.data);
+                alert('Berhasil menambahkan kapal')
+                location.href = './ships'
             })
             .catch((error) => {
                 console.log(error.response);
