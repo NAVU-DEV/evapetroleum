@@ -568,6 +568,7 @@ export default function Ships() {
                                             ) && data.book_status == "Accepted"
                                 )
                                 .map((data, index) => {
+                                    console.log(data)
                                     return (
                                         <tr
                                             key={index}
