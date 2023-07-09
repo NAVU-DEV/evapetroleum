@@ -36,7 +36,8 @@ class ShipLeaseController extends Controller
             'ship_id' => 'required',
             'company' => 'required',
             'email' => 'required',
-            'document' => 'required'
+            'document' => 'required',
+            'booked_until' => 'required'
         ]);
 
         // File upload
@@ -53,6 +54,7 @@ class ShipLeaseController extends Controller
                 'email' => $request->input('email'),
                 'document' => $filename,
                 'book_status' => 'Booking',
+                'booked_until' => $request->input('booked_until'),
                 'created_at' => now(),
                 'updated_at' => now()
             ]

@@ -13,6 +13,7 @@ class LeaseBook extends Model
         'company',
         'email',
         'document',
-        'book_status'
+        'book_status',
+        'booked_until'
     ];
 }

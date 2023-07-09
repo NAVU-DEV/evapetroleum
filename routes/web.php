@@ -27,6 +27,7 @@ Route::get('/', [FrontendController::class, 'index'])->name('frontend-home');
 Route::get('/product', [FrontendController::class, 'frontend_product'])->name('frontend-product');
 Route::get('/aboutus', [FrontendController::class, 'frontend_aboutus'])->name('frontend-aboutus');
 Route::get('/shiplease', [FrontendController::class, 'frontend_shiplease'])->name('frontend-shiplease');
+Route::post('/sendbooking', [ShipLeaseController::class, 'sendBooking'])->name('send-booking');
 
 // Get Data
 Route::get('/testimony', [FrontendController::class, 'getTestimony'])->name('get-testimony');
@@ -59,7 +60,6 @@ Route::middleware('auth')->group(function () {
 
     // Admin Post Data
     Route::post('/acceptbook', [LeaseBookController::class, 'acceptBook'])->name('accept-book');
-    Route::post('/sendbooking', [ShipLeaseController::class, 'sendBooking'])->name('send-booking');
     Route::post('/ships', [ShipLeaseController::class, 'addShips'])->name('add-ships');
     Route::post('/ships/{data}', [ShipLeaseController::class, 'deleteShip'])->name('delete-ships');
     Route::post('/contentupdate', [HomeContentController::class, 'updateContent'])->name('home-content-update');

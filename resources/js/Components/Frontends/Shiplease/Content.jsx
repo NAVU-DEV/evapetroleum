@@ -15,6 +15,7 @@ export default function Content() {
         company : '',
         email : '',
         document : null,
+        booked_until : null,
     })
 
     useEffect(() => {
@@ -41,7 +42,8 @@ export default function Content() {
                 ship_id : document.querySelector(`.ship-id-${e.target.id[0]}`).value,
                 company : document.querySelector(`.company-input-${e.target.id[0]}`).value,
                 email : document.querySelector(`.email-input-${e.target.id[0]}`).value,
-                document : document.querySelector(`.document-input-${e.target.id[0]}`).files[0]
+                document : document.querySelector(`.document-input-${e.target.id[0]}`).files[0],
+                booked_until : document.querySelector(`.booked-date-input-${e.target.id[0]}`).value
             })
         )
     }
@@ -60,6 +62,7 @@ export default function Content() {
             <div className="grid lg:grid-cols-2 gap-2 px-2 lg:px-24"> 
                 {
                     ships.filter(ships => ships.name.toLowerCase().includes(findData.toLowerCase())).map((data, index) => {
+                        console.log(data)
                         return (
                             <div data-aos={`fade-right`} className="grid lg:grid-cols-3 gap-4 bg-gray-200 rounded-xl drop-shadow-2xl" key={index}>
                                 <div className="lg:h-56 w-full max-lg:hidden lg:rounded-l-xl"
@@ -104,7 +107,7 @@ export default function Content() {
                                         </div>
                                         :
                                         <div className="flex justify-center items-end">
-                                            <p className="cursor-pointer p-2 bg-gray-400 rounded-md text-white cursor-wait tooltip" data-tip='Shipping'>Request</p>
+                                            <p className="cursor-pointer p-2 bg-gray-400 rounded-md text-white cursor-wait tooltip" data-tip="Shipping">Available on {data.lease_book[0].booked_until}</p>
                                         </div>
                                     }
                                 </div>
@@ -128,6 +131,7 @@ export default function Content() {
                                     <input type="hidden" value={data.id} id={index} readOnly className={`ship-id-${index}`}/>
                                     <input type="text" value={bookingData.company} id={index} onChange={handleBookingForm} className={`company-input-${index} h-8 rounded-md`} placeholder="company"/>
                                     <input type="text" value={bookingData.email} id={index} onChange={handleBookingForm} className={`email-input-${index} h-8 rounded-md`} placeholder="email"/>
+                                    <input type="date" value={bookingData.booked_until} id={index} onChange={handleBookingForm} className={`booked-date-input-${index} h-8 rounded-md`}/>
                                     <input type="file" onChange={handleBookingForm} id={`${index}-file`} className={`document-input-${index} hidden`}/>
                                     <label htmlFor={`${index}-file`} className="p-1 bg-gray-800 hover:bg-gray-600 cursor-pointer text-white font-bold rounded-md">Upload Document Here</label>
                                     <div className="flex gap-2 w-full">

@@ -7,5 +7,6 @@ export interface ShipleaseInterface {
     yard : string,
     lwt : number,
     rate : number,
-    status : string
+    status : string,
+    booked_until : Date
 }

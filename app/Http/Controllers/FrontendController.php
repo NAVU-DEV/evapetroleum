@@ -43,6 +43,6 @@ class FrontendController extends Controller
     public function getShips()
     {
         return response()->json(
-            ShipLease::all());
+            ShipLease::with(['leaseBook'])->get());
     }
 }

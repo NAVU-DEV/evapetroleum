@@ -17,17 +17,20 @@ class LeaseBookSeeder extends Seeder
             [
                 'ship_id' => 1,
                 'company' => 'PT. X',
-                'document' => 'lorem-ipsum.pdf'
+                'document' => 'lorem-ipsum.pdf',
+                'booked_until' => now()
             ],
             [
                 'ship_id' => 1,
                 'company' => 'PT. Y',
-                'document' => 'lorem-ipsum.pdf'
+                'document' => 'lorem-ipsum.pdf',
+                'booked_until' => now()
             ],
             [
                 'ship_id' => 1,
                 'company' => 'PT. Z',
-                'document' => 'lorem-ipsum.pdf'
+                'document' => 'lorem-ipsum.pdf',
+                'booked_until' => now()
             ],
         )->create();
     }

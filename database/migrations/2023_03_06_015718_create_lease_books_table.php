@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('document');
             $table->string('book_status');
+            $table->date('booked_until');
             $table->timestamps();
         });
     }
